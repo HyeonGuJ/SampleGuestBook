@@ -41,21 +41,10 @@ public class HomeController {
 		return "home";
 	}
 	
-    // 1. 로그아웃 요청시 수행
     @RequestMapping(value = "/goGuestBookPage", method = RequestMethod.GET)
     public ModelAndView logoff(HttpServletRequest request, Model model){
         
     	return new ModelAndView("guestBookPage");
     }
-
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView loginPage(HttpServletRequest request, Model model){
-        return new ModelAndView("login");
-    }
-
-
-
-
 
 }
