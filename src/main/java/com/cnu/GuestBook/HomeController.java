@@ -45,23 +45,15 @@ public class HomeController {
     @RequestMapping(value = "/goGuestBookPage", method = RequestMethod.GET)
     public ModelAndView logoff(HttpServletRequest request, Model model){
         
-        return redirectView(request, "/guestBookMain.jsp");
+    	return new ModelAndView("guestBookPage");
     }
 
 
-    //페이지 이동
-    private ModelAndView redirectView(HttpServletRequest request, String url){
-        RedirectView rv = new RedirectView();
-        ModelAndView mav = new ModelAndView(rv);
-        rv.setUrl(request.getContextPath() + url);
-        
-        // GET방식으로 된 파라메터들을 모두 없앰
-        rv.setExposePathVariables(false);
-        // Model에 등록 된 값들을 모두 없앰
-        rv.setExposeModelAttributes(false);
-        
-        return mav;
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView loginPage(HttpServletRequest request, Model model){
+        return new ModelAndView("login");
     }
+
 
 
 

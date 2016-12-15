@@ -9,9 +9,7 @@
 <title> HG's GuestBook </title>
 </head>
 <body>
-
 	<P> GuestBook </P>	
 	<P> testing </P>	
-
 </body>
 </html>
