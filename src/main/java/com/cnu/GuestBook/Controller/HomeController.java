@@ -19,10 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cnu.GuestBook.domain.Message;
 import com.cnu.GuestBook.mybatis.ConnectionFactory.MyBatisConnectionFactory;
 import com.cnu.GuestBook.persistence.MessageDAO;
+import javax.servlet.http.HttpSession;
 
-/**`
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
@@ -40,19 +38,7 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
-		
-		
-		///connect myBatis session 
-		SqlSession sqlSession = MyBatisConnectionFactory.getSqlSessionFactory().openSession(true);
-		MessageDAO message = sqlSession.getMapper(MessageDAO.class);
-
-		List<Message> messages = null;
-		messages = message.selectAllMessage();
-		for (Message msg : messages) {
-			System.out.println("message : " + message);
-		}
-		
+		model.addAttribute("serverTime", formattedDate );		
 		
 		return "home";
 	}
