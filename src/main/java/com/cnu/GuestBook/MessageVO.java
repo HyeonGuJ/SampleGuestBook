@@ -1,4 +1,4 @@
-package com.cnu.GuestBook.domain;
+package com.cnu.GuestBook;
 
 import java.util.Date;
 

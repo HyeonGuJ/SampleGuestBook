@@ -3,10 +3,19 @@
 
 <mapper namespace="com.cnu.GuestBook.MessageMapper">
 
-	<select id="selectAllUsers" resultMap="result">
-		select *
-		from users;
-	</select>
+	<resultMap id="MessageMap" type="com.cnu.GuestBook.MessageVO">
+		<id property="idx" 			column="idMessage" />
+		<result property="email" 	column="email" />
+		<result property="password" column="password" />
+		<result property="date" 	column="date" />
+		<result property="modifiedDate" column="modifiedDate" />
+		<result property="text" 	column="text" />
 
+
+	</resultMap>
+
+	<select id="select" resultMap="MessageMap">
+		SELECT * FROM message
+	</select>
 
 </mapper>  

@@ -1,4 +1,4 @@
-package com.cnu.GuestBook.persistence;
+package com.cnu.GuestBook;
 
 import java.util.List;
 
@@ -6,20 +6,18 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.cnu.GuestBook.domain.MessageVO;
-
 @Service(value = "MessageDAO")
 public class MessageDAO {
 	
     @Resource(name = "MessageMapper")
     private MessageMapper messageMapper;
 
-    public List<MessageVO> getSelectAll() {
-        return this.messageMapper.getSelectAll();
+    public List<MessageVO> select() {
+        return this.messageMapper.select();
     }
 
     public MessageVO getSelectOne(int idx) {
-        return this.messageMapper.getSelectOne(idx);
+        return this.messageMapper.selectOne(idx);
     }
 
     public void insert(MessageVO MessageVO) {
