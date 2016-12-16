@@ -2,12 +2,12 @@ package com.cnu.GuestBook.Controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.*;
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-/**
+import com.cnu.GuestBook.domain.Message;
+import com.cnu.GuestBook.mybatis.ConnectionFactory.MyBatisConnectionFactory;
+import com.cnu.GuestBook.persistence.MessageDAO;
+
+/**`
  * Handles requests for the application home page.
  */
 @Controller
@@ -38,6 +41,18 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		
+		
+		///connect myBatis session 
+		SqlSession sqlSession = MyBatisConnectionFactory.getSqlSessionFactory().openSession(true);
+		MessageDAO message = sqlSession.getMapper(MessageDAO.class);
+
+		List<Message> messages = null;
+		messages = message.selectAllMessage();
+		for (Message msg : messages) {
+			System.out.println("message : " + message);
+		}
+		
 		
 		return "home";
 	}

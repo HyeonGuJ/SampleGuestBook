@@ -1,5 +1,7 @@
 package com.cnu.GuestBook.mybatis.ConnectionFactory;
 
+
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -13,12 +15,11 @@ public class MyBatisConnectionFactory {
  
     static {
         try {
- 
-            String resource = "com/cnu/GuestBook/mybatis/mybatis-config.xml";
+            String resource = "com/mybatis/config.xml";
             Reader reader = Resources.getResourceAsReader(resource);
  
             if (sqlSessionFactory == null) {
-                sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+            	sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
             }
         }
         catch (FileNotFoundException fileNotFoundException) {
@@ -28,6 +29,7 @@ public class MyBatisConnectionFactory {
             iOException.printStackTrace();
         }
     }
+    
     public static SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
     }

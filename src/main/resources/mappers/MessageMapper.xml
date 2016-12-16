@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<!DOCTYPE configuration
-PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-       <typeAliases>
-               <package name="com.cnu.GuestBook.domain"/>
-       </typeAliases>
-</configuration>
+<mapper namespace="com.sample.mybatis.dao.UserMapper">
+
+	<select id="selectAllUsers" resultMap="result">
+		select *
+		from users;
+	</select>
+
+
+</mapper>  
