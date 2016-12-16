@@ -6,7 +6,7 @@ public class Message {
 	private int id;
 	private String email;
 	private String password;
-	private Date date;
+	private String date;
 	private String text;
 	public int getId() {
 		return id;
@@ -26,10 +26,10 @@ public class Message {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getText() {
