@@ -1,4 +1,4 @@
-package com.cnu.GuestBook;
+package com.cnu.GuestBook.Controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,8 @@ public class HomeController {
     public ModelAndView logoff(HttpServletRequest request, Model model){
         
     	return new ModelAndView("guestBookPage");
+    	
+
     }
 
 }
