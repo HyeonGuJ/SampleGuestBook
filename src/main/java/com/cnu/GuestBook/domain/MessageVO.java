@@ -2,7 +2,7 @@ package com.cnu.GuestBook.domain;
 
 import java.util.Date;
 
-public class Message {
+public class MessageVO {
 	private int id;
 	private String email;
 	private String password;
