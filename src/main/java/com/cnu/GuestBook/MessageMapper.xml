@@ -4,18 +4,17 @@
 <mapper namespace="com.cnu.GuestBook.MessageMapper">
 
 	<resultMap id="MessageMap" type="com.cnu.GuestBook.MessageVO">
-		<id property="idx" 			column="idMessage" />
+		<id property="idMessage" 			column="idMessage" />
 		<result property="email" 	column="email" />
 		<result property="password" column="password" />
 		<result property="date" 	column="date" />
 		<result property="modifiedDate" column="modifiedDate" />
 		<result property="text" 	column="text" />
-
-
 	</resultMap>
 
 	<select id="select" resultMap="MessageMap">
 		SELECT * FROM message
 	</select>
-
+	
+	<delete id="delete"> DELETE FROM message WHERE idMessage = #{idMessage} </delete>
 </mapper>  

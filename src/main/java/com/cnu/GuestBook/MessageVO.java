@@ -3,17 +3,21 @@ package com.cnu.GuestBook;
 import java.util.Date;
 
 public class MessageVO {
-	private int id;
+	private int idMessage;
+
 	private String email;
 	private String password;
 	private String date;
 	private String text;
-	public int getId() {
-		return id;
+
+	
+	public int getIdMessage() {
+		return idMessage;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdMessage(int idMessage) {
+		this.idMessage = idMessage;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -40,7 +44,7 @@ public class MessageVO {
 	}
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", email=" + email + ", password=" + password + ", date=" + date + ", text=" + text
+		return "Message [idMessage=" + idMessage + ", email=" + email + ", password=" + password + ", date=" + date + ", text=" + text
 				+ "]";
 	}	
 	
