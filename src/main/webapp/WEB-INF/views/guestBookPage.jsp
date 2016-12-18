@@ -17,7 +17,7 @@
 
 	<table width="300" border="2" cellpadding="0" cellspacing="0"	bordercolor="#D6D4D6" align="center">
 		<tr height="40">
-			<td style=""><b>방 명 록</b></td>
+			<td align="center"><b >방 명 록</b></td>
 		</tr>
 	</table>
 
@@ -41,7 +41,7 @@
 			<tr>
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">email	</td>
 				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
-					<input type="text" name="email" size="35"maxlength="20" value ="${object.email}"  />	</td>
+					<input type="email" name="email" size="35"maxlength="20" value ="${object.email}"  />	</td>
 			</tr>
 			<tr>
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password</td>
@@ -55,7 +55,7 @@
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">text
 					(max 300)</td>
 				<td width="480" colspan="3" style="padding-left: 10px;" align="left">
-					<textarea name="content" rows="3" cols="84" style="height: 50px;" maxlength="300">${object.text}</textarea>	</td>
+					<textarea id="text" name="text" rows="3" cols="84" style="height: 50px;" maxlength="300"></textarea>	</td>
 			</tr>
 
 			<tr>

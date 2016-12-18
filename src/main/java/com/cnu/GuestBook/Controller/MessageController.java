@@ -56,7 +56,7 @@ public class MessageController {
     	System.out.println(mVO);
     	
     	
-    	//this.messageDAO.insert(mVO);
+    	this.messageDAO.insert(mVO);
     	
 		List<MessageVO> allMessage = this.messageDAO.select();
 		for(MessageVO message : allMessage)
