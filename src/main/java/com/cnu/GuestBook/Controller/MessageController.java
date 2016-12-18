@@ -1,20 +1,20 @@
 package com.cnu.GuestBook.Controller;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cnu.GuestBook.MessageDAO;
 import com.cnu.GuestBook.MessageVO;
@@ -29,7 +29,7 @@ public class MessageController {
 	
 	
 	@RequestMapping(value = "/getAllMessage", method = RequestMethod.GET)
-	public String message(Locale locale, Model model) {
+	public String getAllMessage(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<MessageVO> allMessage = this.messageDAO.select();
@@ -42,10 +42,30 @@ public class MessageController {
 		return "message";
 	}
 	
-    @RequestMapping(value = "/insertMessage", method = RequestMethod.GET)
-    public ModelAndView logoff(HttpServletRequest request, Model model){
+    @RequestMapping(value = "/insertMessage")
+    public String insertMessage(@ModelAttribute("mVO") MessageVO mVO){
         
-    	return new ModelAndView("guestBookPage");
+    	System.out.println("insertMessage");    	
+    	
+    	Date now = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        
+    	mVO.setDate(sdf.format(now));
+    	mVO.setModifiedDate(sdf.format(now));
+    	
+    	System.out.println(mVO);
+    	
+    	
+    	//this.messageDAO.insert(mVO);
+    	
+		List<MessageVO> allMessage = this.messageDAO.select();
+		for(MessageVO message : allMessage)
+		{
+			System.out.println(message);
+		}
+		
+		
+    	return "guestBookPage";
     	
 
     }

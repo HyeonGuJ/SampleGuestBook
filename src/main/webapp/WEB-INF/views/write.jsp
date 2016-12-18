@@ -16,8 +16,7 @@
 			<tr>
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password</td>
 				<td width="240" height="30" style="padding-left: 10px;" align="left"
-					colspan="3"><input type="password" name=password
-					"
+					colspan="3"><input type="password" name="password"
 						size="35" maxlength="20" class="boxTF" /></td>
 			</tr>
 			<tr>
@@ -39,9 +38,9 @@
 			</tr>
 			<tr>
 				<td width="600" colspan="4" height="35" align="right"
-					style="padding-right: 15px;"><input type="button" value="등록하기"
+					style="padding-right: 15px;"><input type="button" value="submit"
 					class="btn2" onclick="sendIt()" /> <input type="reset"
-					value=" 다시입력 " onclick="document.myForm.name.focus();" class="btn2" /></td>
+					value=" reset " onclick="document.myForm.name.focus();" class="btn2" /></td>
 			</tr>
 			<br />
 		</table>

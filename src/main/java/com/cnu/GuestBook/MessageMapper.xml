@@ -16,5 +16,10 @@
 		SELECT * FROM message
 	</select>
 	
+	<insert id="insert">
+	INSERT INTO message (email, password, date, modifiedDate, text) 
+	VALUES (#{email}, #{password}, #{date}, #{modifiedDate}, #{text});
+	</insert>
+	
 	<delete id="delete"> DELETE FROM message WHERE idMessage = #{idMessage} </delete>
 </mapper>  
