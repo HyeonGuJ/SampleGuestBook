@@ -22,81 +22,56 @@
 	</table>
 
 	<br />&nbsp;
-	<br />
 
 
-	<form id="messageWriteForm" name="messageWriteForm" method="RequestMethod.POST" 
-	action="${pageContext.request.contextPath}/insertMessage">
-	
-		
-		<table width="600" border="0" cellpadding="0" cellspacing="0"	align="center">
-			<tr>
-				<td width="600" colspan="4" height="3" bgcolor="#FD893C"></td>
-			</tr>
-			<tr>
-				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
-			</tr>
-			
-			
-			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">email	</td>
-				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
-					<input type="email" name="email" size="35"maxlength="20" value ="${object.email}"  />	</td>
-			</tr>
-			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password</td>
-				<td width="240" height="30" style="padding-left: 10px;" align="left"colspan="3">
-					<input type="password" name="password"	size="35" maxlength="20" value ="${object.password}" /> </td>
-			</tr>
-			<tr>
-				<td width="600" colspan="4" height="1" bgcolor="#FD893C"></td>
-			</tr>
-			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">text
-					(max 300)</td>
-				<td width="480" colspan="3" style="padding-left: 10px;" align="left">
-					<textarea id="text" name="text" rows="3" cols="84" style="height: 50px;" maxlength="300"></textarea>	</td>
-			</tr>
-
-			<tr>
-				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
-			</tr>
-
-			<tr>
-				<td width="600" colspan="4" height="3" bgcolor="#FD893C"></td>
-			</tr>
-			<tr>
-				<td width="600" colspan="4" height="35" align="right" style="padding-right: 15px;">
-				<input type="submit" value="submit" />
-				<input type="reset" value="reset " onclick="document.myForm.name.focus();" /></td>
-			</tr>
-			<br />
-		</table>
-	</form>
+	<!--  write button -->
+	<table align="center">
+		<tr height="40">
+		<td align="center">
+			<form id="writeButton" name="writeButton" 	action="${pageContext.request.contextPath}/goToWritePage">			
+				<input type= "submit"  id="write" name="write"value="write" width="100" hight="50">				
+			</form>
+		</td> 
+		</tr>
+	</table>	
 	
 	
 	
 	<br/>
-	<table width="600" border="0" cellpadding="0" cellspacing="0" align="center">
-	<!-- if message is exist -->
-	    <tr><td width="600" colspan="2" height="3" bgcolor="#E6D4A6"></td></tr>
-	     <c:forEach var="item" items="${list}" varStatus="status">
-	        <tr height="25">
-	            <td width="50%" align="left">NO. ${item.idMessage}&nbsp;&nbsp;:  ${item.idMessage}</td>
-	            <td width="50%" align="right">${item.modifiedDate}&nbsp;&nbsp;
-	            <a href="${pageContext.request.contextPath}/modifyMessage">수정</a></td>
-	            
-	        </tr>
-	        <tr><td width="600" colspan="2" height="1" bgcolor="#E6D4A6"></td></tr>
-	        <tr height="60">
-	            <td align="left" style="padding: 5px 5px 5px 5px;" valign="top">
-	                <pre>${item.text}</pre>
-	            </td>
-	        </tr>
-	        <tr><td width="600" colspan="2" height="3" bgcolor="#E6D4A6"></td></tr>
+
+	<!--  show messages -->
+	<table width="600" border="0" cellpadding="0" cellspacing="0"
+		align="center">
+		<tr>
+			<td width="600" colspan="2" height="3" bgcolor="#E6D4A6"></td>
+		</tr>
+		<c:forEach var="item" items="${list}" varStatus="status">
+			<tr height="25">
+				<td width="50%" align="left">NO. ${item.idMessage}&nbsp;&nbsp;:
+					${item.email}</td>
+				<td width="50%" align="right">${item.modifiedDate}&nbsp;&nbsp;
+					<a href="${pageContext.request.contextPath}/modifyMessage?idMessage=${item.idMessage}">수정</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="600" colspan="2" height="1" bgcolor="#E6D4A6"></td>
+			</tr>
+			<tr height="60">
+				<td align="left" style="padding: 5px 5px 5px 5px;" valign="top">
+					<pre>${item.text}</pre>
+				</td>
+			</tr>
+			<tr>
+				<td width="600" colspan="2" height="3" bgcolor="#E6D4A6"></td>
+			</tr>
 		</c:forEach>
+
+		<tr height="25">
+			<td width="50%" align="center"> end of message </td>
+		</tr>
+
 	</table>
-    
-    
+
+
 </body>
 </html>
