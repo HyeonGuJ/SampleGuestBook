@@ -161,6 +161,15 @@
 			<version>1.2.2-201002241055</version>
 			<type>nbm</type>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.6</version>
+		    <scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

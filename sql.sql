@@ -5,7 +5,7 @@ CREATE TABLE `guestbook`.`message` (
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `date` DATETIME NOT NULL,
-  `modifiedDate` DATETIME NULL,
+  `modifiedDate` DATETIME NOT NULL,
   `text` VARCHAR(300) NOT NULL,
   PRIMARY KEY (`idMessage`),
   UNIQUE INDEX `idMessage_UNIQUE` (`idMessage` ASC));

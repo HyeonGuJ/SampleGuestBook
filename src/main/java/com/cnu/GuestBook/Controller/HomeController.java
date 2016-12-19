@@ -21,40 +21,40 @@ import com.cnu.GuestBook.MessageVO;
 
 @Controller
 public class HomeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Resource(name = "MessageDAO")
-    private MessageDAO messageDAO;
-	
-	
+	private MessageDAO messageDAO;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );	
+
+		model.addAttribute("serverTime", formattedDate);
+
+		return "home";
+	}
+
+	@RequestMapping(value = "/goGuestBookPage", method = RequestMethod.GET)
+	public String goGuestBookPage(HttpServletRequest request, Model model) {
+
+		logger.info("display view BBS list");
 
 		List<MessageVO> allMessage = this.messageDAO.select();
-		for(MessageVO message : allMessage)
-		{
+		for (MessageVO message : allMessage) {
 			System.out.println(message);
 		}
 
-		
-		return "home";
-	}
-	
-    @RequestMapping(value = "/goGuestBookPage", method = RequestMethod.GET)
-    public ModelAndView logoff(HttpServletRequest request, Model model){
-        
-    	return new ModelAndView("guestBookPage");
-    	
+		model.addAttribute("list", allMessage);
 
-    }
+		return "guestBookPage";
+
+	}
 
 }

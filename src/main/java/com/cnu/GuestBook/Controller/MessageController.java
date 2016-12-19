@@ -53,6 +53,7 @@ public class MessageController {
     	mVO.setDate(sdf.format(now));
     	mVO.setModifiedDate(sdf.format(now));
     	
+    	
     	System.out.println(mVO);
     	
     	
