@@ -36,43 +36,6 @@ public class messageControllerTest {
 	@Resource
 	private MessageController messagController = new MessageController();
 
-	@Test
-	public void testGetAllMessage() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGoToWritePage() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testInsertMessage() {
-
-		MessageVO mVO = new MessageVO();
-
-		System.out.println(messageDAO);
-		List<MessageVO> AllMessageBeforeInsert = messageDAO.select();
-
-		int numOfMessageBeforeInset = AllMessageBeforeInsert.size();
-
-		Date now = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
-		mVO.setEmail("test@test.com");
-		mVO.setPassword("55555");
-		mVO.setDate(sdf.format(now));
-		mVO.setModifiedDate(sdf.format(now));
-		mVO.setText("insertMessage()");
-
-		messagController.getMessageDAO().insert(mVO);
-
-		List<MessageVO> AllMessageAftgerInsert = this.messagController.getMessageDAO().select();
-		int numOfMessageAfterInset = AllMessageAftgerInsert.size();
-
-		assertTrue(numOfMessageAfterInset == 1);
-
-	}
 
 	@Test
 	public void isCorrectEmailTest() {
@@ -83,9 +46,6 @@ public class messageControllerTest {
 
 	}
 
-	@Test
-	public void testModifyMessage() {
-		fail("Not yet implemented");
-	}
+
 
 }
