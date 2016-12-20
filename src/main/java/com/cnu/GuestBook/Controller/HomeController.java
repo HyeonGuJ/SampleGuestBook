@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.cnu.GuestBook.MessageDAO;
 import com.cnu.GuestBook.MessageVO;
@@ -44,13 +43,10 @@ public class HomeController {
 	@RequestMapping(value = "/goGuestBookPage", method = RequestMethod.GET)
 	public String goGuestBookPage(HttpServletRequest request, Model model) {
 
-		logger.info("display view BBS list");
-
 		List<MessageVO> allMessage = this.messageDAO.select();
 		for (MessageVO message : allMessage) {
 			System.out.println(message);
 		}
-
 		model.addAttribute("list", allMessage);
 
 		return "guestBookPage";

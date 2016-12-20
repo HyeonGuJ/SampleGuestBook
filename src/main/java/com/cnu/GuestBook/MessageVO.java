@@ -1,7 +1,5 @@
 package com.cnu.GuestBook;
 
-import java.util.Date;
-
 public class MessageVO {
 	
 	private int idMessage;

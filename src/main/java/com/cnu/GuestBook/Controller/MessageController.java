@@ -3,7 +3,7 @@ package com.cnu.GuestBook.Controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cnu.GuestBook.MessageDAO;
 import com.cnu.GuestBook.MessageVO;
@@ -29,15 +28,30 @@ public class MessageController {
     private MessageDAO messageDAO;
 	
 	
+	public MessageDAO getMessageDAO() {
+		return messageDAO;
+	}
+
 	@RequestMapping(value = "/getAllMessage", method = RequestMethod.GET)
-	public String getAllMessage(Locale locale, Model model) {
+	public String getAllMessage(Model model) {
 	
-		List<MessageVO> allMessage = this.messageDAO.select();		
-		return "message";
+		
+		List<MessageVO> allMessage = selectAll();
+		for (MessageVO message : allMessage) {
+			System.out.println(message);
+		}
+		model.addAttribute("list", allMessage);
+		
+		return "guestBookPage";
+	}
+
+	public List<MessageVO> selectAll() {
+		List<MessageVO> allMessage = this.messageDAO.select();
+		return allMessage;
 	}
 	
 	@RequestMapping(value = "/goToWritePage", method = RequestMethod.GET)
-	public String goToWritePage(Locale locale, Model model) {
+	public String goToWritePage() {
 		
 		return "write";
 		
@@ -56,30 +70,50 @@ public class MessageController {
     	mVO.setDate(sdf.format(now));
     	mVO.setModifiedDate(sdf.format(now));
     	
-    	
-    	System.out.println(mVO);
-    	this.messageDAO.insert(mVO);
-		
-		List<MessageVO> allMessage = this.messageDAO.select();
-		for (MessageVO message : allMessage) {
-			System.out.println(message);
-		}
 
-		model.addAttribute("list", allMessage);
+    	if(hasEmptyContents(mVO) )
+    	{
+    		System.out.println(" insert fail...");
+    		return getAllMessage(model);
+    	}
+    	
+    	
+    	if(isCorrectEmailFormat(mVO.getEmail()))
+    	{
+    		System.out.println(mVO);
+        	this.messageDAO.insert(mVO);
+        	return getAllMessage(model);
+    	}
+    	else
+    	{
+    		System.out.println(" insert fail...");
+    	}
 		
-		
-    	return "guestBookPage";
+			
+    	return getAllMessage(model);
     	
 
     }
-    
-    @RequestMapping(value = "/modifyMessage", method = RequestMethod.GET)
+
+	private boolean hasEmptyContents(MessageVO mVO) {
+
+		return mVO.getEmail().equals("")
+				|| mVO.getPassword().equals("") 
+				|| mVO.getText().equals("") ;
+	}
+
+	public boolean isCorrectEmailFormat(String email) {
+    	return Pattern.matches("[A-Za-z0-9_.-]+@([A-Za-z0-9_]+\\.)+[A-Za-z]{2,4}", email);  	
+	}
+
+	@RequestMapping(value = "/modifyMessage", method = RequestMethod.GET)
     public String modifyMessage(@RequestParam(value="idMessage") int idMessage, Model model) {
         logger.info("modifyMessage - idMessage : "+ idMessage);
 
 
         return "modify";
     }
+    
     
 
 }
