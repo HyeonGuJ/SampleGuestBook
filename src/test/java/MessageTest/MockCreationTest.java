@@ -26,11 +26,11 @@ public class MockCreationTest {
     }
 
     @Test
-    public void testMockCreation(){
+    public void testMockCreation()   {
     	
-    
-    	when(messageDAO.select()).thenReturn( new ArrayList<MessageVO>());
-    	
+
+        
+    	when( messageDAO.select() ).thenReturn( new ArrayList<MessageVO>());
     	assertNotNull(messageDAO.select());
         assertNotNull(messageVO);
         assertNotNull(messageDAO);
