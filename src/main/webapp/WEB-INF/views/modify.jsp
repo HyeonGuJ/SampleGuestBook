@@ -26,7 +26,7 @@
 
 
 	<form id="messageWriteForm" name="messageWriteForm" method="RequestMethod.POST" 
-	action="${pageContext.request.contextPath}/insertMessage">
+	action="${pageContext.request.contextPath}/modifyMessage">
 	
 		
 		<table width="600" border="0" cellpadding="0" cellspacing="0"	align="center">
@@ -38,14 +38,27 @@
 			</tr>
 			
 			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">email	</td>
+				<td width="120" height="30" bgcolor="#EEEEEE" align="center">No.	</td>
 				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
-					<input type="email" name="email" size="35"maxlength="20" value ="${message.email}"  />	</td>
+					<input type="idMessage" name="idMessage" size="35"maxlength="20" readonly="readonly" value ="${message.idMessage}"  /></td>
+			</tr>		
+			
+			<tr>
+				<td width="600" colspan="4" height="3" bgcolor="#FD893C"></td>
 			</tr>
 			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password</td>
+				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
+			</tr>
+			
+			<tr>
+				<td width="120" height="30" bgcolor="#EEEEEE" align="center">email	</td>
+				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
+					<input type="email" name="email" size="35"maxlength="20" readonly="readonly" value ="${message.email}"  />	</td>
+			</tr>
+			<tr>
+				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password (required)</td>
 				<td width="240" height="30" style="padding-left: 10px;" align="left"colspan="3">
-					<input type="password" name="password"	size="35" maxlength="20" value ="${message.password}" /> </td>
+					<input type="password" name="password"	size="35" maxlength="20" required="required" value ="${message.password}" /> </td>
 			</tr>
 			<tr>
 				<td width="600" colspan="4" height="1" bgcolor="#FD893C"></td>
@@ -54,7 +67,7 @@
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">text
 					(max 300)</td>
 				<td width="480" colspan="3" style="padding-left: 10px;" align="left">
-					<textarea id="text" name="text" rows="3" cols="84" style="height: 50px;" maxlength="300"></textarea></td>
+					<textarea id="text" name="text" rows="3" cols="84" style="height: 50px;" maxlength="300">${message.text}</textarea></td>
 			</tr>
 
 			<tr>

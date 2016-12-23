@@ -16,6 +16,18 @@
 		SELECT * FROM message
 	</select>
 	
+    <select id="selectById" parameterType="int" resultMap="MessageMap">
+       SELECT * FROM message WHERE idMessage = #{idMessage}
+    </select>
+    
+    <update id="update">
+         UPDATE	message 
+         SET	modifiedDate = #{modifiedDate},
+         		text = #{text}
+         WHERE	idMessage = #{idMessage} LIMIT 1
+    </update>
+    
+	
 	<insert id="insert">
 	INSERT INTO message (email, password, date, modifiedDate, text) 
 	VALUES (#{email}, #{password}, #{date}, #{modifiedDate}, #{text});

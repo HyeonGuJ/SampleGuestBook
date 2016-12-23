@@ -50,7 +50,7 @@
 				<td width="50%" align="left">NO. ${item.idMessage}&nbsp;&nbsp;:
 					${item.email}</td>
 				<td width="50%" align="right">${item.modifiedDate}&nbsp;&nbsp;
-					<a href="${pageContext.request.contextPath}/modifyMessage?idMessage=${item.idMessage}">수정</a>
+					<a href="${pageContext.request.contextPath}/goToModifyMessage?idMessage=${item.idMessage}">수정</a>
 				</td>
 			</tr>
 			<tr>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface MessageMapper {
 	
     List<MessageVO> select();
-    MessageVO selectOne(int idx);
+    MessageVO selectById(int idx);
     void insert(MessageVO MessageVO);
     void update(MessageVO MessageVO);
     void delete(int idx);

@@ -17,7 +17,7 @@ public class MockCreationTest {
     private MessageVO messageVO;
     
     
-    private List<MessageVO> allMessages = new ArrayList<>();
+    private List<MessageVO> allMessages = new ArrayList<MessageVO>();
     
     @Before
     public void setupMock() {

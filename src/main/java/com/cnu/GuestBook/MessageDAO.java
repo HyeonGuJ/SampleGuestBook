@@ -16,8 +16,8 @@ public class MessageDAO {
         return this.messageMapper.select();
     }
 
-    public MessageVO getSelectOne(int idx) {
-        return this.messageMapper.selectOne(idx);
+    public MessageVO selectById(int idx) {
+        return this.messageMapper.selectById(idx);
     }
 
     public void insert(MessageVO MessageVO) {

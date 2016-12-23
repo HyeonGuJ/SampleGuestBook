@@ -33,12 +33,12 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "/getAllMessage", method = RequestMethod.GET)
-	public String getAllMessage(Model model) {
+	public String goToGuestBookPage(Model model) {
 	
 		
 		List<MessageVO> allMessage = selectAll();
 		for (MessageVO message : allMessage) {
-			System.out.println(message);
+			logger.info(message.toString());
 		}
 		model.addAttribute("list", allMessage);
 		
@@ -56,44 +56,19 @@ public class MessageController {
 		return "write";
 		
 	}
-	
-	
-    @RequestMapping(value = "/insertMessage")
-    public String insertMessage(@ModelAttribute("mVO") MessageVO mVO,  Model model){
-        
-    	logger.info("insertMessage");
- 	
-    	
-    	Date now = new Date();
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        
-    	mVO.setDate(sdf.format(now));
-    	mVO.setModifiedDate(sdf.format(now));
-    	
 
-    	if(hasEmptyContents(mVO) )
-    	{
-    		System.out.println(" insert fail...");
-    		return getAllMessage(model);
-    	}
-    	
-    	
-    	if(isCorrectEmailFormat(mVO.getEmail()))
-    	{
-    		System.out.println(mVO);
-        	this.messageDAO.insert(mVO);
-        	return getAllMessage(model);
-    	}
-    	else
-    	{
-    		System.out.println(" insert fail...");
-    	}
+	
+	@RequestMapping(value = "/goToModifyMessage", method = RequestMethod.GET)
+	public String goToModifyMessage(@RequestParam(value="idMessage") int idMessage, Model model) {
 		
-			
-    	return getAllMessage(model);
-    	
-
-    }
+		MessageDAO messageDAO = new MessageDAO();		
+		MessageVO message = this.messageDAO.selectById(idMessage);	
+		message.setPassword("");
+		model.addAttribute("message", message);
+		model.addAttribute("text", message.getText());
+		return "modify";
+		
+	}
 
 	private boolean hasEmptyContents(MessageVO mVO) {
 
@@ -106,14 +81,61 @@ public class MessageController {
     	return Pattern.matches("[A-Za-z0-9_.-]+@([A-Za-z0-9_]+\\.)+[A-Za-z]{2,4}", email);  	
 	}
 
-	@RequestMapping(value = "/modifyMessage", method = RequestMethod.GET)
-    public String modifyMessage(@RequestParam(value="idMessage") int idMessage, Model model) {
-        logger.info("modifyMessage - idMessage : "+ idMessage);
+	@RequestMapping(value = "/modifyMessage")
+	public String modifyMessage(@ModelAttribute("mVO") MessageVO mVO, Model model) {
 
+		logger.info("modifyMessage");
+		
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		mVO.setModifiedDate(sdf.format(now));
 
-        return "modify";
-    }
+		
+		System.out.println(mVO);
+		
+		if (hasEmptyContents(mVO)) {
+			logger.info(" modify fail...");
+			return goToGuestBookPage(model);
+		}
+
+		if (isCorrectEmailFormat(mVO.getEmail())) {
+			logger.info("updating...");
+			this.messageDAO.update(mVO);
+			
+		} else {
+			logger.info(" modify fail...");
+		}
+
+		return goToGuestBookPage(model);
+
+	}
     
-    
+	@RequestMapping(value = "/insertMessage")
+	public String insertMessage(@ModelAttribute("mVO") MessageVO mVO, Model model) {
+
+		logger.info("insertMessage");
+
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+		mVO.setDate(sdf.format(now));
+		mVO.setModifiedDate(sdf.format(now));
+
+		if (hasEmptyContents(mVO)) {
+			logger.info(" insert fail...");
+			return goToGuestBookPage(model);
+		}
+
+		if (isCorrectEmailFormat(mVO.getEmail())) {
+			this.messageDAO.insert(mVO);
+			return goToGuestBookPage(model);
+		} else {
+			logger.info(" insert fail...");
+		}
+
+		return goToGuestBookPage(model);
+
+	}
 
 }
