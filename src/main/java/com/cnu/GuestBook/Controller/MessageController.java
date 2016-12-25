@@ -1,11 +1,14 @@
 package com.cnu.GuestBook.Controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,9 +66,14 @@ public class MessageController {
 		
 		MessageDAO messageDAO = new MessageDAO();		
 		MessageVO message = this.messageDAO.selectById(idMessage);	
+		
+		String saved_password = message.getPassword();
+		model.addAttribute("saved_password", saved_password);
+		
 		message.setPassword("");
-		model.addAttribute("message", message);
+		model.addAttribute("message", message);		
 		model.addAttribute("text", message.getText());
+		
 		return "modify";
 		
 	}
@@ -82,7 +90,8 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "/modifyMessage")
-	public String modifyMessage(@ModelAttribute("mVO") MessageVO mVO, Model model) {
+	public String modifyMessage(@ModelAttribute("mVO") MessageVO mVO, @ModelAttribute("saved_password") int saved_password, 
+			Model model, HttpServletResponse response) {
 
 		logger.info("modifyMessage");
 		
@@ -90,11 +99,12 @@ public class MessageController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		mVO.setModifiedDate(sdf.format(now));
-
 		
-		System.out.println(mVO);
+		logger.info("[hidden] saved_password : "+ saved_password);
+		logger.info(mVO.toString());
 		
 		if (hasEmptyContents(mVO)) {
+			alert(" insert fail! - one or more items are empty","/GuestBook/goGuestBookPage", response);
 			logger.info(" modify fail...");
 			return goToGuestBookPage(model);
 		}
@@ -104,7 +114,7 @@ public class MessageController {
 			this.messageDAO.update(mVO);
 			
 		} else {
-			logger.info(" modify fail...");
+			alert(" insert fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response)
 		}
 
 		return goToGuestBookPage(model);
@@ -112,7 +122,7 @@ public class MessageController {
 	}
     
 	@RequestMapping(value = "/insertMessage")
-	public String insertMessage(@ModelAttribute("mVO") MessageVO mVO, Model model) {
+	public String insertMessage(@ModelAttribute("mVO") MessageVO mVO, Model model, HttpServletResponse response) {
 
 		logger.info("insertMessage");
 
@@ -122,19 +132,34 @@ public class MessageController {
 		mVO.setDate(sdf.format(now));
 		mVO.setModifiedDate(sdf.format(now));
 
-		if (hasEmptyContents(mVO)) {
+		if (hasEmptyContents(mVO)) {			
 			logger.info(" insert fail...");
-			return goToGuestBookPage(model);
+			alert(" insert fail! - One or more items are empty.","/GuestBook/goGuestBookPage", response);			
 		}
 
-		if (isCorrectEmailFormat(mVO.getEmail())) {
+		if (isCorrectEmailFormat(mVO.getEmail())) {			
 			this.messageDAO.insert(mVO);
 			return goToGuestBookPage(model);
 		} else {
 			logger.info(" insert fail...");
+			alert(" insert fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
 		}
 
 		return goToGuestBookPage(model);
+
+	}
+
+	private void alert(String alertMessage, String href, HttpServletResponse response) {
+		PrintWriter writer = null;
+		try {
+			response.setCharacterEncoding("EUC-KR");
+			writer = response.getWriter();
+			writer.println("<script>alert('" + alertMessage + "'); location.href='" + href + "' </script>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			writer.close();
+		}
 
 	}
 

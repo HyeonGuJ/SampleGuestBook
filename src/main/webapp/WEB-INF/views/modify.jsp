@@ -28,6 +28,8 @@
 	<form id="messageWriteForm" name="messageWriteForm" method="RequestMethod.POST" 
 	action="${pageContext.request.contextPath}/modifyMessage">
 	
+		<input type="hidden" id = "saved_password" name="saved_password" size="35"maxlength="20" readonly="readonly"  
+			value="${saved_password}"/>	
 		
 		<table width="600" border="0" cellpadding="0" cellspacing="0"	align="center">
 			<tr>
@@ -35,13 +37,7 @@
 			</tr>
 			<tr>
 				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
-			</tr>
-			
-			<tr>
-				<td width="120" height="30" bgcolor="#EEEEEE" align="center">No.	</td>
-				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
-					<input type="idMessage" name="idMessage" size="35"maxlength="20" readonly="readonly" value ="${message.idMessage}"  /></td>
-			</tr>		
+			</tr>	
 			
 			<tr>
 				<td width="600" colspan="4" height="3" bgcolor="#FD893C"></td>
@@ -58,11 +54,16 @@
 			<tr>
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">password (required)</td>
 				<td width="240" height="30" style="padding-left: 10px;" align="left"colspan="3">
-					<input type="password" name="password"	size="35" maxlength="20" required="required" value ="${message.password}" /> </td>
+					<input type="password" name="password"	size="35" maxlength="20" required="required" /> </td>
+			</tr>
+
+			<tr>
+				<td width="600" colspan="4" height="3" bgcolor="#FD893C"></td>
 			</tr>
 			<tr>
-				<td width="600" colspan="4" height="1" bgcolor="#FD893C"></td>
+				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
 			</tr>
+			
 			<tr>
 				<td width="120" height="30" bgcolor="#EEEEEE" align="center">text
 					(max 300)</td>
