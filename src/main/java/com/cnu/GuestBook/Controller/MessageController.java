@@ -114,7 +114,7 @@ public class MessageController {
 			this.messageDAO.update(mVO);
 			
 		} else {
-			alert(" insert fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response)
+			alert(" insert fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
 		}
 
 		return goToGuestBookPage(model);
