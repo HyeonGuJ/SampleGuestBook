@@ -37,4 +37,4 @@ https://www.dropbox.com/sh/gcfw9omjaogt52g/AACQb7vIoZbfd8wp9G6wBtCfa?dl=0
 >    - [ ] 5. 
 >    - [ ] 6. 
 
-### [12.21~12.23 KCC 16 ]
+### [12.21~12.23 KCC 16 √‚¿Â ]
