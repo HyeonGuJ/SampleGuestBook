@@ -39,6 +39,10 @@ public class MessageController {
 	public String goToGuestBookPage(Model model) {
 	
 		
+		return goToGuestBookPageService(model);
+	}
+
+	private String goToGuestBookPageService(Model model) {
 		List<MessageVO> allMessage = selectAll();
 		for (MessageVO message : allMessage) {
 			logger.info(message.toString());
@@ -104,7 +108,7 @@ public class MessageController {
 		logger.info(mVO.toString());
 		
 		if (hasEmptyContents(mVO)) {
-			alert(" insert fail! - one or more items are empty","/GuestBook/goGuestBookPage", response);
+			alert(" modify fail! - one or more items are empty","/GuestBook/goGuestBookPage", response);
 			logger.info(" modify fail...");
 			return goToGuestBookPage(model);
 		}
@@ -114,7 +118,7 @@ public class MessageController {
 			this.messageDAO.update(mVO);
 			
 		} else {
-			alert(" insert fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
+			alert(" modify fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
 		}
 
 		return goToGuestBookPage(model);
