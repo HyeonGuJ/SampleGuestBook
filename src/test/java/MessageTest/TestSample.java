@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 @ContextConfiguration("servlet-context.xml")
 @WebAppConfiguration
-
 public class TestSample extends TestCase {
 
 	@Autowired
