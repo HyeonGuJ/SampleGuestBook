@@ -28,8 +28,8 @@ public class MessageDAO {
          this.messageMapper.update(MessageVO);
     }
 
-    public void delete(int idx) {
-         this.messageMapper.delete(idx);
+    public void deleteById(int idx) {
+         this.messageMapper.deleteById(idx);
     }
 
 }

@@ -11,5 +11,5 @@ public interface MessageMapper {
     MessageVO selectById(int idx);
     void insert(MessageVO MessageVO);
     void update(MessageVO MessageVO);
-    void delete(int idx);
+    void deleteById(int idx);
 }

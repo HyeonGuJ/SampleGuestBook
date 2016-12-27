@@ -33,5 +33,5 @@
 	VALUES (#{email}, #{password}, #{date}, #{modifiedDate}, #{text});
 	</insert>
 	
-	<delete id="delete"> DELETE FROM message WHERE idMessage = #{idMessage} </delete>
+	<delete id="deleteById"> DELETE FROM message WHERE idMessage = #{idMessage} </delete>
 </mapper>  
