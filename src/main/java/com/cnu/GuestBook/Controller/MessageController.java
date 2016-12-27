@@ -3,6 +3,7 @@ package com.cnu.GuestBook.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -38,11 +39,6 @@ public class MessageController {
 	@RequestMapping(value = "/getAllMessage", method = RequestMethod.GET)
 	public String goToGuestBookPage(Model model) {
 	
-		
-		return goToGuestBookPageService(model);
-	}
-
-	private String goToGuestBookPageService(Model model) {
 		List<MessageVO> allMessage = selectAll();
 		for (MessageVO message : allMessage) {
 			logger.info(message.toString());
@@ -51,6 +47,7 @@ public class MessageController {
 		
 		return "guestBookPage";
 	}
+
 
 	public List<MessageVO> selectAll() {
 		List<MessageVO> allMessage = this.messageDAO.select();
@@ -68,7 +65,7 @@ public class MessageController {
 	@RequestMapping(value = "/goToModifyMessage", method = RequestMethod.GET)
 	public String goToModifyMessage(@RequestParam(value="idMessage") int idMessage, Model model) {
 		
-		MessageDAO messageDAO;		
+				
 		MessageVO message = this.messageDAO.selectById(idMessage);	
 		
 		String saved_password = message.getPassword();
@@ -163,13 +160,20 @@ public class MessageController {
 		}
 
 		return goToGuestBookPage(model);
-
 	}
 
+	@RequestMapping(value = "/deleteMessage")
+	public String deleteMessage(@RequestParam(value="idMessage") int idMessage, 
+			 Model model,HttpServletResponse response) {
+
+		messageDAO.deleteById(idMessage);
+		return goToGuestBookPage(model);
+	}
+	
 	private void alert(String alertMessage, String href, HttpServletResponse response) {
 		PrintWriter writer = null;
 		try {
-			response.setCharacterEncoding("EUC-KR");
+			
 			writer = response.getWriter();
 			writer.println("<script>alert('" + alertMessage + "'); location.href='" + href + "' </script>");
 		} catch (IOException e) {
@@ -178,6 +182,12 @@ public class MessageController {
 			writer.close();
 		}
 
+	}
+	
+	private  ArrayList<MessageVO> sortMessageByLastestDate(List<MessageVO> messages)
+	{
+		
+		return null;		
 	}
 
 }

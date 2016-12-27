@@ -39,14 +39,11 @@ public class MessageControllerTest {
 	@Resource
 	private MessageController messagController;
 
-	private int idMessage_m1;	//inserted message's id 1
-	private int idMessage_m2;	//inserted message's id 2
 	
 	@Before
 	public void setUp() {
 		messagController = new MessageController();
-		idMessage_m1 = -1;
-		idMessage_m2 = -1;
+
 	}
 
 	
@@ -56,10 +53,10 @@ public class MessageControllerTest {
 		int beforeSize = messageDAO.select().size();		
 		
 		messageDAO.insert(maketMessage1());
-		idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
 		
 		messageDAO.insert(maketMessage2());
-		idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
+		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
 
 		int afterSize = messageDAO.select().size();
 		
@@ -73,7 +70,7 @@ public class MessageControllerTest {
 		
 		//insert
 		messageDAO.insert(maketMessage1());
-		idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
 		
 		//get inserted one
 		MessageVO messageVO = messageDAO.selectById(idMessage_m1);
@@ -92,16 +89,34 @@ public class MessageControllerTest {
 	
 	@Test
 	public void test_03_delete() {
+		//delete 2 element that was inserted by test_01_insertNSelectAll()
 		
+		int beforeSize = messageDAO.select().size();		
+		
+		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+		messageDAO.deleteById(idMessage_m1);
+		
+		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
+		messageDAO.deleteById(idMessage_m2);
+		
+		int afterSize = messageDAO.select().size();
+		assertTrue(beforeSize - afterSize == 2);
 	}
 
 
 
 	@Test
 	public void test_04_sortAllMessageByTime() {
-
+		
 	}
+	
+	private ArrayList<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
+		// TODO
+		// sort by lastest date
 
+		return null;
+	}
+	
 	@Test
 	public void test_99_isCorrectEmailTest() {
 		assertTrue(messagController.isCorrectEmailFormat("jhg3182@naver.com"));
@@ -142,11 +157,6 @@ public class MessageControllerTest {
 		return list.get(list.size()-1).getIdMessage();
 	}
 
-	private ArrayList<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
-		// TODO
-		// sort by lastest date
 
-		return null;
-	}
 
 }

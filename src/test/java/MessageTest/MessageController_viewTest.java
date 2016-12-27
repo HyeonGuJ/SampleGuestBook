@@ -24,50 +24,41 @@ import com.cnu.GuestBook.MessageDAO;
 import com.cnu.GuestBook.MessageVO;
 import com.cnu.GuestBook.Controller.MessageController;
 
-@RunWith(SpringJUnit4ClassRunner.class)	
-@ContextConfiguration(locations = {
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @WebAppConfiguration
-public class viewTest {
-    private MessageDAO messageDAO;
+public class MessageController_viewTest {
+	private MessageDAO messageDAO;
 
-    @Mock
-    private MessageController messageController;
+	@Mock
+	private MessageController messageController;
 
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    private MockMvc mockMvc;   
+	private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
-    	
-    	
+	@Before
+	public void setUp() {
 
-    	MockitoAnnotations.initMocks(this);
-    	this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		MockitoAnnotations.initMocks(this);
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 
+	}
 
-    }
+	@Test
+	public void goToWritePageTest() throws Exception {
 
-    
-    @Test
-    public void goToWritePageTest() throws Exception {    	
+		this.mockMvc.perform(get("/goToWritePage/")).andExpect(status().isOk())
+				.andExpect(forwardedUrl("/WEB-INF/views/write.jsp"));
 
-    	this.mockMvc.perform(get("/goToWritePage/"))
-        .andExpect(status().isOk())
-        .andExpect(forwardedUrl("/WEB-INF/views/write.jsp"));
+	}
 
-
-    }
-    
-    @Test
-    public void getAllMessageTest() throws Exception {    	
-          mockMvc.perform(get("/getAllMessage/"))
-          .andExpect(status().isOk())
-          .andExpect(forwardedUrl("/WEB-INF/views/guestBookPage.jsp"));
-    }  
-    
+	@Test
+	public void getAllMessageTest() throws Exception {
+		mockMvc.perform(get("/getAllMessage/")).andExpect(status().isOk())
+				.andExpect(forwardedUrl("/WEB-INF/views/guestBookPage.jsp"));
+	}
 
 }

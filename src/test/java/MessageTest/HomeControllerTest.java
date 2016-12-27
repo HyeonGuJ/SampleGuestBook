@@ -27,7 +27,6 @@ import com.cnu.GuestBook.Controller.HomeController;
         "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @WebAppConfiguration
 public class HomeControllerTest {
-    private MessageDAO messageDAO;
 
     @Mock
     private HomeController homeController;
@@ -37,17 +36,13 @@ public class HomeControllerTest {
 
     private MockMvc mockMvc;   
 
-    @Before
-    public void setUp() {
-    	
-        homeController = new HomeController();    	
-    	MockitoAnnotations.initMocks(this);
-    	mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
-    	mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+	@Before
+	public void setUp() {
 
+		MockitoAnnotations.initMocks(this);
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 
-
-    }
+	}
     
     @Test
     public void goToWritePageTest() throws Exception {    	
@@ -57,5 +52,13 @@ public class HomeControllerTest {
         .andExpect(forwardedUrl("/WEB-INF/views/home.jsp"));
     }
     
+    
+    @Test
+    public void goGuestBookPage() throws Exception {    	
+
+    	this.mockMvc.perform(get("/goGuestBookPage"))
+        .andExpect(status().isOk())
+        .andExpect(forwardedUrl("/WEB-INF/views/guestBookPage.jsp"));
+    }
 
 }
