@@ -1,8 +1,6 @@
 package MessageTest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,36 +37,65 @@ public class MessageControllerTest {
 	private MessageMapper messageMapper;
 
 	@Resource
-	private MessageController messagController = new MessageController();
+	private MessageController messagController;
 
+	private int idMessage_m1;	//inserted message's id 1
+	private int idMessage_m2;	//inserted message's id 2
+	
 	@Before
 	public void setUp() {
-
+		messagController = new MessageController();
+		idMessage_m1 = -1;
+		idMessage_m2 = -1;
 	}
 
+	
 	@Test
 	public void test_01_insertNSelectAll() {
-
+		
+		int beforeSize = messageDAO.select().size();		
 		
 		messageDAO.insert(maketMessage1());
-		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
-
+		idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+		
 		messageDAO.insert(maketMessage2());
-		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
+		idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
 
-		assertTrue(messageDAO.select().size() >= 2);
+		int afterSize = messageDAO.select().size();
+		
 		assertTrue(idMessage_m1 < idMessage_m2);
+		assertTrue(afterSize - beforeSize == 2);
+		
 	}
 
 	@Test
-	public void test_02_delete() {
-
+	public void test_02_modify() {
+		
+		//insert
+		messageDAO.insert(maketMessage1());
+		idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+		
+		//get inserted one
+		MessageVO messageVO = messageDAO.selectById(idMessage_m1);
+		
+		//modify 
+		String modifiedText = "modifiedText";
+		messageVO.setText(modifiedText);
+		messageDAO.update(messageVO);
+		
+		//get modified one
+		MessageVO modifiedMessageVO = messageDAO.selectById(idMessage_m1);
+		
+		//test
+		assertEquals(modifiedMessageVO.getText(),modifiedText);
 	}
-
+	
 	@Test
-	public void test_03_modify() {
-
+	public void test_03_delete() {
+		
 	}
+
+
 
 	@Test
 	public void test_04_sortAllMessageByTime() {

@@ -68,11 +68,12 @@ public class MessageController {
 	@RequestMapping(value = "/goToModifyMessage", method = RequestMethod.GET)
 	public String goToModifyMessage(@RequestParam(value="idMessage") int idMessage, Model model) {
 		
-		MessageDAO messageDAO = new MessageDAO();		
+		MessageDAO messageDAO;		
 		MessageVO message = this.messageDAO.selectById(idMessage);	
 		
 		String saved_password = message.getPassword();
 		model.addAttribute("saved_password", saved_password);
+
 		
 		message.setPassword("");
 		model.addAttribute("message", message);		
@@ -94,33 +95,45 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "/modifyMessage")
-	public String modifyMessage(@ModelAttribute("mVO") MessageVO mVO, @ModelAttribute("saved_password") int saved_password, 
+	public String modifyMessage(
+			@ModelAttribute("mVO") MessageVO mVO, 
+			@ModelAttribute("saved_password") String saved_password, 
 			Model model, HttpServletResponse response) {
 
 		logger.info("modifyMessage");
-		
-		Date now = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		
-		mVO.setModifiedDate(sdf.format(now));
-		
+		logger.info("message No. :  : "+ mVO.getIdMessage());
 		logger.info("[hidden] saved_password : "+ saved_password);
 		logger.info(mVO.toString());
+		
+		
+		
+		//modified date : current time
+		Date now = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");		
+		mVO.setModifiedDate(sdf.format(now));
+		
 		
 		if (hasEmptyContents(mVO)) {
 			alert(" modify fail! - one or more items are empty","/GuestBook/goGuestBookPage", response);
 			logger.info(" modify fail...");
 			return goToGuestBookPage(model);
 		}
-
-		if (isCorrectEmailFormat(mVO.getEmail())) {
-			logger.info("updating...");
-			this.messageDAO.update(mVO);
+		
+		if (! mVO.getPassword().equals(saved_password)) {
+			alert(" modify fail! - incorrect password","/GuestBook/goGuestBookPage", response);
 			
-		} else {
-			alert(" modify fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
 		}
 
+		if (!isCorrectEmailFormat(mVO.getEmail())) {
+			alert(" modify fail! - Email format is incorrect","/GuestBook/goGuestBookPage", response);
+			logger.info(" modify fail...");
+			return goToGuestBookPage(model);
+		}
+			
+		logger.info("DB updating...");
+		this.messageDAO.update(mVO);
+		logger.info("DB update Success!!");
+		
 		return goToGuestBookPage(model);
 
 	}

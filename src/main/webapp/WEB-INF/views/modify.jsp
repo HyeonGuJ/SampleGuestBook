@@ -37,6 +37,12 @@
 			</tr>
 			<tr>
 				<td width="600" colspan="4" height="3" bgcolor="#FFFFFF"></td>
+			</tr>
+			
+			<tr>
+				<td width="120" height="30" bgcolor="#EEEEEE" align="center">email	</td>
+				<td width="240" height="30" style="padding-left: 10px;" align="left" colspan="3">
+					<input type="text" name="idMessage" size="35"maxlength="20" readonly="readonly" value ="${message.idMessage}"  />	</td>
 			</tr>	
 			
 			<tr>
