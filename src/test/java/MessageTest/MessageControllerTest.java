@@ -90,6 +90,7 @@ public class MessageControllerTest {
 	@Test
 	public void test_03_delete() {
 		//delete 2 element that was inserted by test_01_insertNSelectAll()
+		//delete 1 element that was inserted by test_02_modify()()
 		
 		int beforeSize = messageDAO.select().size();		
 		
@@ -99,8 +100,11 @@ public class MessageControllerTest {
 		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
 		messageDAO.deleteById(idMessage_m2);
 		
+		int idMessage_m3 = getIDMessageOfLastestMessage(messageDAO.select());
+		messageDAO.deleteById(idMessage_m3);
+		
 		int afterSize = messageDAO.select().size();
-		assertTrue(beforeSize - afterSize == 2);
+		assertTrue(beforeSize - afterSize == 3);
 	}
 
 
