@@ -1,6 +1,8 @@
 package MessageTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +10,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,7 +27,7 @@ import com.cnu.GuestBook.Controller.MessageController;
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @Transactional
 @WebAppConfiguration
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class MessageControllerTest {
 
 	@Resource
@@ -39,88 +39,97 @@ public class MessageControllerTest {
 	@Resource
 	private MessageController messagController;
 
-	
 	@Before
 	public void setUp() {
 		messagController = new MessageController();
 
+		deleteAll();
+		insertTwoElements();
+
 	}
 
-	
-	@Test
-	public void test_01_insertNSelectAll() {
-		
-		int beforeSize = messageDAO.select().size();		
+	private void insertTwoElements() {
 		
 		messageDAO.insert(maketMessage1());
 		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
-		
+
+		messageDAO.insert(maketMessage2());
+		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
+	}
+
+	private void deleteAll() {
+		for (MessageVO mVO : messageDAO.select()) {
+			messageDAO.deleteById(mVO.getIdMessage());
+		}
+
+	}
+
+	@Test
+	public void test_01_insertNSelectAll() {
+
+		int beforeSize = messageDAO.select().size();
+
+		messageDAO.insert(maketMessage1());
+		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
+
 		messageDAO.insert(maketMessage2());
 		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
 
 		int afterSize = messageDAO.select().size();
-		
+
 		assertTrue(idMessage_m1 < idMessage_m2);
 		assertTrue(afterSize - beforeSize == 2);
-		
+
 	}
 
 	@Test
 	public void test_02_modify() {
-		
-		//insert
+
+		// insert
 		messageDAO.insert(maketMessage1());
 		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
-		
-		//get inserted one
+
+		// get inserted one
 		MessageVO messageVO = messageDAO.selectById(idMessage_m1);
-		
-		//modify 
+
+		// modify
 		String modifiedText = "modifiedText";
 		messageVO.setText(modifiedText);
 		messageDAO.update(messageVO);
-		
-		//get modified one
+
+		// get modified one
 		MessageVO modifiedMessageVO = messageDAO.selectById(idMessage_m1);
-		
-		//test
-		assertEquals(modifiedMessageVO.getText(),modifiedText);
+
+		// test
+		assertEquals(modifiedMessageVO.getText(), modifiedText);
 	}
-	
+
 	@Test
 	public void test_03_delete() {
-		//delete 2 element that was inserted by test_01_insertNSelectAll()
-		//delete 1 element that was inserted by test_02_modify()()
-		
-		int beforeSize = messageDAO.select().size();		
-		
+		// delete 2 element that was inserted by test_01_insertNSelectAll()
+		// delete 1 element that was inserted by test_02_modify()()
+
+		int beforeSize = messageDAO.select().size();
+
 		int idMessage_m1 = getIDMessageOfLastestMessage(messageDAO.select());
 		messageDAO.deleteById(idMessage_m1);
-		
-		int idMessage_m2 = getIDMessageOfLastestMessage(messageDAO.select());
-		messageDAO.deleteById(idMessage_m2);
-		
-		int idMessage_m3 = getIDMessageOfLastestMessage(messageDAO.select());
-		messageDAO.deleteById(idMessage_m3);
-		
+
 		int afterSize = messageDAO.select().size();
-		assertTrue(beforeSize - afterSize == 3);
+		assertTrue(beforeSize - afterSize == 1);
 	}
-
-
 
 	@Test
 	public void test_04_sortAllMessageByTime() {
-		
+
 	}
-	
+
 	private ArrayList<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
 		// TODO
 		// sort by lastest date
 
 		return null;
 	}
-	
+
 	@Test
 	public void test_99_isCorrectEmailTest() {
 		assertTrue(messagController.isCorrectEmailFormat("jhg3182@naver.com"));
@@ -158,9 +167,7 @@ public class MessageControllerTest {
 		// TODO
 		// get biggest idMessage in messages.
 		// idMessage -> auto Increment -> last element in messages
-		return list.get(list.size()-1).getIdMessage();
+		return list.get(list.size() - 1).getIdMessage();
 	}
-
-
 
 }
