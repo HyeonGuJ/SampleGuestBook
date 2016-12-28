@@ -16,7 +16,7 @@
 
 
     <!-- Root Context: defines shared resources visible to all other web components -->
-    <import resource="classpath:context-datasource.xml"/>
-    <import resource="classpath:context-mybatis.xml" />
+    <import resource="classpath*:context-datasource.xml"/>
+    <import resource="classpath*:context-mybatis.xml" />
 
 </beans>
