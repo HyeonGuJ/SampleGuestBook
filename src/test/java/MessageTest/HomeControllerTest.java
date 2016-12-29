@@ -53,12 +53,12 @@ public class HomeControllerTest {
     }
     
     
-    @Test
+/*    @Test
     public void goGuestBookPage() throws Exception {    	
 
     	this.mockMvc.perform(get("/goGuestBookPage"))
         .andExpect(status().isOk())
         .andExpect(forwardedUrl("/WEB-INF/views/guestBookPage.jsp"));
-    }
+    }*/
 
 }
