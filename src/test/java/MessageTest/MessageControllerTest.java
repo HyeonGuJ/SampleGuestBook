@@ -68,7 +68,7 @@ public class MessageControllerTest {
 	{
 		assertTrue(true);
 	}
-/*
+
 	@Test
 	public void test_01_insertNSelectAll() {
 
@@ -128,7 +128,7 @@ public class MessageControllerTest {
 
 	}
 
-	private ArrayList<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
+	private ArrayList<MessageVO> sortMessageByLastestDate() {
 		// TODO
 		// sort by lastest date
 
@@ -143,7 +143,17 @@ public class MessageControllerTest {
 		assertFalse(messagController.isCorrectEmailFormat("jhg3182navercom"));
 
 	}
-*/
+
+	@Test
+	public void test_99_dateString2Integer()
+	{
+		Long dateLong = new Long ("20161212121212");
+		String input = "2016.12.12 12:12:12.0";
+		System.out.println(input);
+		Long parsedDate = 0l;
+		parsedDate =  messagController.dateString2Long(input);
+		assertEquals(dateLong,parsedDate);
+	}
 	private MessageVO maketMessage1() {
 		MessageVO message1 = new MessageVO();
 		message1.setIdMessage(1);
