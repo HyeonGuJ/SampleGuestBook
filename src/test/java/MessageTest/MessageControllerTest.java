@@ -167,12 +167,7 @@ public class MessageControllerTest {
 		MessageVO messageVO = messageDAO.selectById(idMessage_m1);
 
 		String input = messageVO.getDate();
-		
-		
-		
-		System.out.println(input);
-		Long parsedDate = 0l;
-		parsedDate =  messagController.dateString2Long(input);
+		Long parsedDate =  messagController.dateString2Long(input);
 		assertEquals(dateLong,parsedDate);
 	}
 	
@@ -213,7 +208,6 @@ public class MessageControllerTest {
 	}
 
 	private int getIDMessageOfLastestMessage(List<MessageVO> list) {
-		// TODO
 		// get biggest idMessage in messages.
 		// idMessage -> auto Increment -> last element in messages
 		return list.get(list.size() - 1).getIdMessage();
