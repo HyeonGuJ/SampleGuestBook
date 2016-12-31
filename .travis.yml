@@ -1,8 +1,4 @@
 language: java
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer      
 jdk:
 - oraclejdk8
 script: make test
@@ -12,6 +8,5 @@ branches:
 services:
 - mysql
 before_install:
-
-- mysql -e 'CREATE SCHEMA `guestbook`' ;
+- mysql -e 'CREATE SCHEMA `guestbook` ;'
 - mysql -e 'CREATE TABLE `guestbook`.`message` (  `idMessage` INT NOT NULL AUTO_INCREMENT,  `email` VARCHAR(45) NOT NULL,  `password` VARCHAR(45) NOT NULL,  `date` DATETIME NOT NULL,  `modifiedDate` DATETIME NOT NULL,  `text` VARCHAR(300) NOT NULL,  PRIMARY KEY (`idMessage`),  UNIQUE INDEX `idMessage_UNIQUE` (`idMessage` ASC));'

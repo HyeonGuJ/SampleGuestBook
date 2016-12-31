@@ -186,15 +186,6 @@
         	<artifactId>spring-beans</artifactId>
         	<version>4.2.2.RELEASE</version>
         </dependency>
-
-
-
-
-        <dependency>
-        	<groupId>org.projectlombok</groupId>
-        	<artifactId>lombok</artifactId>
-        	<version>1.16.12</version>
-        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -217,8 +208,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
