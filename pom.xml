@@ -186,6 +186,15 @@
         	<artifactId>spring-beans</artifactId>
         	<version>4.2.2.RELEASE</version>
         </dependency>
+
+
+
+
+        <dependency>
+        	<groupId>org.projectlombok</groupId>
+        	<artifactId>lombok</artifactId>
+        	<version>1.16.12</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
