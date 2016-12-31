@@ -12,6 +12,7 @@
         <property name="mapperLocations">
             <list>
                 <value>classpath:mappers/*Mapper.xml</value>
+                <value>file:mappers/*Mapper.xml</value>
             </list>
         </property>
     </bean>
