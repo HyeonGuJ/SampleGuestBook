@@ -54,11 +54,13 @@ public class MessageController_viewTest {
 				.andExpect(forwardedUrl("/WEB-INF/views/write.jsp"));
 
 	}
-
+	
 	@Test
 	public void getAllMessageTest() throws Exception {
 		mockMvc.perform(get("/getAllMessage/")).andExpect(status().isOk())
 				.andExpect(forwardedUrl("/WEB-INF/views/guestBookPage.jsp"));
 	}
+
+
 
 }

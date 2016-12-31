@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -40,6 +41,7 @@ public class MessageController {
 
 		List<MessageVO> allMessage = selectAll();
 		allMessage = sortMessageByLastestDate(allMessage);
+		
 		for (MessageVO message : allMessage) {
 			logger.info(message.toString());
 		}
@@ -173,71 +175,36 @@ public class MessageController {
 
 	}
 
-	private List<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
+	public static List<MessageVO> sortMessageByLastestDate(List<MessageVO> messages) {
 
-		List<Long> dateIntegers = new ArrayList<>();
-		for (MessageVO mVO : messages) {
-			dateIntegers.add(dateString2Long(mVO.getDate()));
-		}
-		quickSortMessage(dateIntegers, 0, dateIntegers.size()-1, messages);
-
-		return messages;
+		Comparator<MessageVO> comparator = (MessageVO m1, MessageVO m2)
+				-> dateString2Long(m1.getDate()).compareTo(dateString2Long(m2.getDate()));
+		messages.sort(comparator);
+		
+		return reverse(messages);
 	}
 
-	public Long dateString2Long(String dateString) {
+	private static List<MessageVO> reverse(List<MessageVO> messages) {
+
+		List<MessageVO> reversedMessage = new ArrayList<MessageVO>();
+		
+		for(MessageVO message : messages)
+		{
+			reversedMessage.add(0, message);
+		}
+		
+		return reversedMessage;
+	}
+
+	public static Long dateString2Long(String dateString) {
 
 		dateString = dateString.replaceAll(" ", "");
-		System.out.println(dateString);
 		dateString = dateString.replaceAll(":", "");
-		System.out.println(dateString);
 		dateString = dateString.replaceAll("-", "");
-		System.out.println(dateString);
-		dateString = dateString.replaceAll(".", "");
-		System.out.println(dateString);
+		dateString = dateString.replace(".", "");
 		Long data = Long.valueOf(dateString);
-		System.out.println(data);
 		return data;
 	}
 
-	public void quickSortMessage(List<Long> arr, int left, int right, List<MessageVO> messages) {
-		int index = partition(arr, left, right, messages);
-		if (left < index - 1) {
-			quickSortMessage(arr, left, index - 1, messages);
-		}
-		if (index < right) {
-			quickSortMessage(arr, index, right, messages);
-		}
-
-	}
-
-	private int partition(List<Long> arr, int left, int right, List<MessageVO> messages) {
-		int i = left, j = right;
-		long pivot = arr.get(left + right) / 2;
-
-		while (i <= j) {
-			while (arr.get(i) < pivot) {
-				i++;
-			}
-			while (arr.get(j) > pivot) {
-				j--;
-			}
-			if (i <= j) {
-
-				swap(arr, i, j);
-				swap(messages, i, j);
-
-				i++;
-				j--;
-			}
-		}
-		return i;
-	}
-
-	private <T> void swap(List<T> arr, int i, int j) {
-		T temp;
-		temp = arr.get(i);
-		arr.set(i, arr.get(j));
-		arr.set(j, temp);
-	}
 
 }

@@ -44,8 +44,11 @@ public class HomeController {
 	public String goGuestBookPage(HttpServletRequest request, Model model) {
 
 		List<MessageVO> allMessage = this.messageDAO.select();
+	
+		allMessage = MessageController.sortMessageByLastestDate(allMessage);
+		
 		for (MessageVO message : allMessage) {
-			System.out.println(message);
+			logger.info(message.toString());
 		}
 		model.addAttribute("list", allMessage);
 
