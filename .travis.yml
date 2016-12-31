@@ -8,7 +8,14 @@ branches:
 services:
 - mysql
 before_install:
-- mysql -u root -e "USE mysql;INSERT INTO user (Host, User, Password) VALUES ('localhost', 'root', password('gusrn'));INSERT INTO user (Host, User, Password) VALUES ('%', 'root', password('gusrn'));FLUSH privileges";
-- mysql -e 'CREATE SCHEMA `guestbook` ;'
-- mysql -e 'CREATE TABLE `guestbook`.`message` (  `idMessage` INT NOT NULL AUTO_INCREMENT,  `email` VARCHAR(45) NOT NULL,  `password` VARCHAR(45) NOT NULL,  `date` DATETIME NOT NULL,  `modifiedDate` DATETIME NOT NULL,  `text` VARCHAR(300) NOT NULL,  PRIMARY KEY (`idMessage`),  UNIQUE INDEX `idMessage_UNIQUE` (`idMessage` ASC));'
+- mysql -u root -e "USE mysql;"
+- mysql -u root -e "INSERT INTO user (Host, User, Password) VALUES ('localhost', 'user1', password('gusrn'));"
+- mysql -u root -e "INSERT INTO user (Host, User, Password) VALUES ('%', 'root', password('gusrn'));"
+- mysql -u root -e "FLUSH privileges";"
+- mysql -e "CREATE SCHEMA 'guestbook' ;"
+- mysql -e "GRANT ALL privileges ON guestbook.* TO user1@locahost IDENTIFIED BY 'gusrn'";
+- mysql -e "GRANT ALL privileges ON guestbookdb.* TO guestbook@'%' IDENTIFIED BY 'pass'";
+- mysql -e "USE guestbookdb;"
+- mysql -e "CREATE TABLE 'guestbook'.'message' (  'idMessage' INT NOT NULL AUTO_INCREMENT,  'email' VARCHAR(45) NOT NULL,  'password' VARCHAR(45) NOT NULL,  'date' DATETIME NOT NULL,  'modifiedDate' DATETIME NOT NULL,  'text' VARCHAR(300) NOT NULL,  PRIMARY KEY ('idMessage'),  UNIQUE INDEX 'idMessage_UNIQUE' ('idMessage' ASC));"
+
 
