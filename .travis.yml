@@ -8,8 +8,7 @@ branches:
 services:
 - mysql
 before_install:
-- mysql -u root -e "USE mysql;"
-- mysql -u root -e "INSERT INTO user (Host, User, Password) VALUES ('localhost', 'user1', password('gusrn'));"
+- mysql -u root -e "USE mysql;INSERT INTO user (Host, User, Password) VALUES ('localhost', 'user1', password('gusrn'));"
 - mysql -u root -e "INSERT INTO user (Host, User, Password) VALUES ('%', 'root', password('gusrn'));"
 - mysql -u root -e "FLUSH privileges";"
 - mysql -e "CREATE SCHEMA 'guestbook' ;"
