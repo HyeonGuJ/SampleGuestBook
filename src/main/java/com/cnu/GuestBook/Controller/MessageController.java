@@ -109,7 +109,7 @@ public class MessageController {
 
 		if (!mVO.getPassword().equals(saved_password)) {
 			alert(" modify fail! - incorrect password", "/GuestBook/goGuestBookPage", response);
-
+			return goToGuestBookPage(model);
 		}
 
 		if (!isCorrectEmailFormat(mVO.getEmail())) {
