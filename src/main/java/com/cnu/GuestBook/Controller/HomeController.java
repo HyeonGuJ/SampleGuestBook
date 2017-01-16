@@ -55,5 +55,11 @@ public class HomeController {
 		return "guestBookPage";
 
 	}
+	
+	@RequestMapping(value = "/goToTuiPage", method = RequestMethod.GET)
+	public String goToTuiPage(HttpServletRequest request, Model model) {
+
+		return "tui";
+	}
 
 }
